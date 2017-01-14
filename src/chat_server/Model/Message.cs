@@ -1,24 +1,16 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace chat_server.Model
+﻿namespace chat_server.Model
 {
     public class Message
     {
-        [JsonProperty("id")]
         public int Id { get; set; }
-        [JsonProperty("username")]
-        public string UserName { get; set; }
-        [JsonProperty("text")]
+
+        public User Sender { get; set; }
+
         public string Text { get; set; }
 
-        public Message(int id, string userName, string text)
+        public Message(User sender, string text)
         {
-            Id = id;
-            UserName = userName;
+            Sender = sender;
             Text = text;
         }
 

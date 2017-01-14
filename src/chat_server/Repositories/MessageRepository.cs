@@ -1,23 +1,20 @@
 ﻿using chat_server.Model;
 using chat_server.Repositories.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System;
 
 namespace chat_server.Repositories
 {
     public class MessageRepository : IMessageRepository
     {
-        private List<Message> _messages = new List<Message>();
-        public void AddMessage(Message message)
+        public void AddMessage(Message message, ChatRoom room)
         {
-            _messages.Add(message);
+            throw new NotImplementedException();
         }
 
-        public List<Message> GetAll()
+        public List<Message> GetMessagesByRoomId(int roomId)
         {
-            return _messages;
+            throw new NotImplementedException();
         }
     }
 }
