@@ -7,7 +7,12 @@
     //"Microsoft.NETCore.App": "1.1.0",
     "Microsoft.NETCore.App": { "version": "1.1.0", "type": "platform" },
     "Microsoft.AspNetCore.SignalR.Server": "0.2.0-*",
-    "Microsoft.AspNetCore.WebSockets": "0.2.0-*"
+    "Microsoft.AspNetCore.WebSockets": "0.2.0-*",
+    "Microsoft.Extensions.Configuration": "1.1.0",
+    "Microsoft.Extensions.Configuration.Json": "1.1.0",
+    "Microsoft.EntityFrameworkCore.Relational":"1.1.0",
+    "SapientGuardian.MySql.Data": "6.9.813",
+    "SapientGuardian.EntityFrameworkCore.MySql": "7.1.15"
   },
 
   "tools": {
@@ -25,7 +30,10 @@
 
   "buildOptions": {
     "emitEntryPoint": true,
-    "preserveCompilationContext": true
+    "preserveCompilationContext": true,
+    "copyToOutput": {
+      "include": "appsettings.json"
+    }
   },
 
   "runtimeOptions": {

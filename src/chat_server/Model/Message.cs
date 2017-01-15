@@ -1,4 +1,6 @@
-﻿namespace chat_server.Model
+﻿using Newtonsoft.Json;
+
+namespace chat_server.Model
 {
     public class Message
     {
@@ -7,6 +9,9 @@
         public User Sender { get; set; }
 
         public string Text { get; set; }
+
+        [JsonIgnoreAttribute]
+        public ChatRoom Room {get;set;}
 
         public Message(User sender, string text)
         {

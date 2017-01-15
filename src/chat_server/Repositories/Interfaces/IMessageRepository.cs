@@ -3,19 +3,19 @@ using System.Collections.Generic;
 
 namespace chat_server.Repositories.Interfaces
 {
-    public interface IMessageRepository
+    public interface IMessageRepository : IGenericRepository<Message>
     {
         /// <summary>
         /// Adds message into database
         /// </summary>
         /// <param name="message"></param>
         /// <param name="room"></param>
-        void AddMessage(Message message, ChatRoom room);
+        void Add(Message message, ChatRoom room);
         
         /// <summary>
         /// Returns list of messages for room
         /// </summary>
         /// <returns></returns>
-        List<Message> GetMessagesByRoomId(int roomId);
+        List<Message> GetByRoomId(int roomId);
     }
 }

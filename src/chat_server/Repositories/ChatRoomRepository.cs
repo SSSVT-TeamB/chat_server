@@ -1,35 +1,19 @@
 using chat_server.Model;
 using chat_server.Repositories.Interfaces;
 using System.Collections.Generic;
-using System;
+using System.Linq;
 
 namespace chat_server.Repositories
 {
-    public class ChatRoomRepository : IChatRoomRepository
+    public class ChatRoomRepository : GenericRepository<ChatRoom>, IChatRoomRepository
     {
-        public ChatRoom AddChatRoom(ChatRoom room)
+        public ChatRoomRepository() : base()
         {
-            throw new NotImplementedException();
+            
         }
-
-        public ChatRoom GetChatRoomById(int id)
+        public List<ChatRoom> GetByUser(User user)
         {
-            throw new NotImplementedException();
-        }
-
-        public List<ChatRoom> GetChatRoomsByUser(User user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveChatRoom(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(ChatRoom room)
-        {
-            throw new NotImplementedException();
+            return GetAll().Where(x => x.HasMember(user)).ToList();
         }
     }
 }

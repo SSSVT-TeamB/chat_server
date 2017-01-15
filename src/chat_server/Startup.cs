@@ -15,6 +15,9 @@ namespace chat_server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IMessageRepository, MessageRepository>();
+            services.AddSingleton<ILoginRepository, LoginRepository>();
+            services.AddSingleton<IChatRoomRepository, ChatRoomRepository>();
+            services.AddSingleton<IUserRepository, UserRepository>();
 
             services.AddSignalR(options =>
             {
@@ -34,8 +37,7 @@ namespace chat_server
             }
 
             app.UseWebSockets();
-            app.UseSignalR();
-            
+            app.UseSignalR();           
 
             app.Run(async (context) =>
             {

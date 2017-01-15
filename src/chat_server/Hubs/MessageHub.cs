@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using chat_server.Model;
 using chat_server.Repositories.Interfaces;
 
@@ -15,38 +16,38 @@ namespace chat_server.Hubs
             _chatRoomRepository = chatRoomRepository;
         }
 
-        public PermissionResult NewMessage(string text, int chatRoomId)
+        public ActionResult NewMessage(string text, int chatRoomId)
         {
-            ChatRoom cr = _chatRoomRepository.GetChatRoomById(chatRoomId);
-            if (User == null || cr == null || !cr.Clients.Contains(User))
-                return PermissionResult.NOT_ENOUGH_PERMISSIONS;
+            ChatRoom cr = _chatRoomRepository.GetById(chatRoomId);
+            if (User == null || cr == null || !cr.HasMember(User))
+                return ActionResult.NOT_ENOUGH_PERMISSIONS;
 
             Message message = new Message(User, text);
 
-            _messageRepository.AddMessage(message,cr);
+            _messageRepository.Add(message,cr);
 
             //notify all users in ChatRoom
-            foreach (User user in cr.Clients)
+            foreach (User user in (from r in cr.Members select r.User).ToList())
             {
-                foreach (string connectionId in user.Connections)
+                foreach (Connection connection in user.Connections)
                 {
                     try{
-                        Clients.Client(connectionId).OnNewMessage(message,cr);
+                        Clients.Client(connection.ConnectionId).OnNewMessage(message,cr);
                     }
                     catch{}                
                 }              
             }
 
-            return PermissionResult.SUCCESS;
+            return ActionResult.SUCCESS;
         }
 
         public List<Message> GetRoomMessages(int chatRoomId)
         {
-            ChatRoom cr = _chatRoomRepository.GetChatRoomById(chatRoomId);
-            if (User == null || cr == null || !cr.Clients.Contains(User))
+            ChatRoom cr = _chatRoomRepository.GetById(chatRoomId);
+            if (User == null || cr == null || !cr.HasMember(User))
                 return null;
 
-            return _messageRepository.GetMessagesByRoomId(cr.Id);
+            return _messageRepository.GetByRoomId(cr.Id);
         }
     }
 }

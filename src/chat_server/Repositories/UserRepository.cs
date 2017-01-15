@@ -1,40 +1,29 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using chat_server.Model;
 using chat_server.Repositories.Interfaces;
 
 namespace chat_server.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : GenericRepository<User>, IUserRepository
     {
-        public void AddUser(User user)
+        public UserRepository() : base()
         {
-            throw new NotImplementedException();
+            
+        }
+        public User GetByConnectionId(string connectionId)
+        {
+           return GetAll().Where(x => x.Connections.Any(y => y.ConnectionId == connectionId)).FirstOrDefault();
         }
 
-        public User GetUserByConnection(string connectionId)
+        public User GetByLogin(Login login)
         {
-            throw new NotImplementedException();
+            return GetAll().Where(x => x.Login == login).FirstOrDefault();
         }
 
-        public User GetUserById(int userId)
+        public List<User> GetByName(string name)
         {
-            throw new NotImplementedException();
-        }
-
-        public User GetUserByLogin(Login login)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<User> GetUsersByName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(User user)
-        {
-            throw new NotImplementedException();
+            return GetAll().Where(x => x.Name.Contains(name)).ToList();
         }
     }
 }

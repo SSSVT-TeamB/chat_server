@@ -2,14 +2,8 @@ using chat_server.Model;
 
 namespace chat_server.Repositories.Interfaces
 {
-    public interface ILoginRepository
+    public interface ILoginRepository : IGenericRepository<Login>
     {
-        /// <summary>
-        /// Adds login into database
-        /// </summary>
-        /// <param name="login">Login with filled props</param>
-        /// <returns>Created instance from database</returns>
-        Login AddLogin(Login login);
 
         /// <summary>
         /// Check if login exists
