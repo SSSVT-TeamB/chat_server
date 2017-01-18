@@ -13,9 +13,6 @@ namespace chat_server.Model
         public Login Login { get; set; }
 
         [JsonIgnoreAttribute]
-        public List<Connection> Connections {get; set; }
-
-        [JsonIgnoreAttribute]
         public List<Contact> Contacts {get; set; }
 
         [JsonIgnoreAttribute]

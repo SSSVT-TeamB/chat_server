@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using chat_server.Model;
 using chat_server.Repositories.Interfaces;
 
@@ -43,10 +41,12 @@ namespace chat_server.Hubs
             room.AddMember(partner);
 
             _chatRoomRepository.Update(room);
+
+            List<string> partnerConnectionIds = GetConnectionIds(partner);
             
-            if (partner.Connections != null)
+            if (partnerConnectionIds.Count == 0)
             {
-            foreach (string connectionId in (from r in partner.Connections select r.ConnectionId))
+            foreach (string connectionId in partnerConnectionIds)
             {
                 try{
                     Clients.Client(connectionId).OnNewChatRoomAdd(room);
@@ -54,7 +54,6 @@ namespace chat_server.Hubs
                 catch{}
             }
             }
-            Console.WriteLine("---------------------"+room.Id+"-------------------------");
             return room;
         }
 
@@ -85,10 +84,10 @@ namespace chat_server.Hubs
 
             foreach (User client in partners)
             {
-                foreach (Connection connection in client.Connections)
+                foreach (string connectionId in GetConnectionIds(client))
                 {
                     try{
-                    Clients.Client(connection.ConnectionId).OnNewChatRoomAdd(room);
+                    Clients.Client(connectionId).OnNewChatRoomAdd(room);
                     }
                     catch
                     {}

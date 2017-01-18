@@ -11,10 +11,6 @@ namespace chat_server.Repositories
         {
             
         }
-        public User GetByConnectionId(string connectionId)
-        {
-           return GetAll().Where(x => x.Connections.Any(y => y.ConnectionId == connectionId)).FirstOrDefault();
-        }
 
         public User GetByLogin(Login login)
         {

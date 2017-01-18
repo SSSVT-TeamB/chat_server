@@ -13,13 +13,6 @@ namespace chat_server.Repositories.Interfaces
         User GetByLogin(Login login);
 
         /// <summary>
-        /// Gets user from database, identified by login
-        /// </summary>
-        /// <param name="connectionId">SignalR's connection id</param>
-        /// <returns>User from database</returns>
-        User GetByConnectionId(string connectionId);
-
-        /// <summary>
         /// Gets user from database, identified by name
         /// </summary>
         /// <param name="name">Name of user</param>

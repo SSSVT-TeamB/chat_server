@@ -29,10 +29,10 @@ namespace chat_server.Hubs
             //notify all users in ChatRoom
             foreach (User user in (from r in cr.Members select r.User).ToList())
             {
-                foreach (Connection connection in user.Connections)
+                foreach (string connectionId in GetConnectionIds(user))
                 {
                     try{
-                        Clients.Client(connection.ConnectionId).OnNewMessage(message,cr);
+                        Clients.Client(connectionId).OnNewMessage(message,cr);
                     }
                     catch{}                
                 }              

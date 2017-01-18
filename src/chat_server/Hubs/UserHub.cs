@@ -15,15 +15,15 @@ namespace chat_server.Hubs
 
         public List<User> GetContacts()
         {
-            if (Clients.Caller.User == null)
+            if (User == null)
                 return null;
 
-            return (List<User>)(from r in (List<Contact>)Clients.Caller.User.Contacts select r.User);
+            return (List<User>)(from r in User.Contacts select r.User);
         }
 
         public List<User> FindContact(string name)
         {
-            if (Clients.Caller.User == null)
+            if (User == null)
                 return null;
             
             return _userRepository.GetByName(name);
@@ -32,20 +32,19 @@ namespace chat_server.Hubs
         public ActionResult AddContact(int userId)
         {   
             User user = _userRepository.GetById(userId);
-            if (Clients.Caller.User == null || (from r in (List<Contact>)Clients.Caller.User.Contacts select r.User).Contains(user))
+            if (User == null || (from r in User.Contacts select r.User).Contains(user))
                 return ActionResult.GENERAL_FAIL;
 
+            User.Contacts.Add(new Contact() {Owner = User,User = user});
+            user.Contacts.Add(new Contact() {Owner = user, User = User});
 
-            /*User.Contacts.User.Add(user);
-            user.Contacts.User.Add(User);
-
-            foreach (Connection connection in user.Connections)
+            foreach (string connectionId in GetConnectionIds(user))
             {
                 try{
-                Clients.Client(connection.ConnectionId).OnNewContactAdd(User);
+                Clients.Client(connectionId).OnNewContactAdd(User);
                 }
                 catch{}
-            }*/
+            }
 
             return ActionResult.SUCCESS;
         }
