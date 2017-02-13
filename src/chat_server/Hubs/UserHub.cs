@@ -36,8 +36,11 @@ namespace chat_server.Hubs
         {   
             User user = _userRepository.GetById(userId);
             
-            if (User == null || _contactRepository.GetByUser(User).Contains(user))
+            if (User == null)
                 return ActionResult.GENERAL_FAIL;
+                
+            if (_contactRepository.GetByUser(User).Contains(user))
+                return ActionResult.USER_EXISTS;
 
             _contactRepository.Add(User,user);
             _contactRepository.Add(user,User);          
