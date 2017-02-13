@@ -15,7 +15,7 @@ namespace chat_server.Repositories
 
         public List<User> GetByUser(User user)
         {
-            return (from r in GetAll() where r.Owner == user select r.User).ToList();
+            return (from p in GetAll() where p.Owner == user select p.User).ToList();
         }
     }
 }

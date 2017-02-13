@@ -30,7 +30,7 @@ namespace chat_server.Hubs
 
         protected List<string> GetConnectionIds(User user)
         {
-            return (List<string>)connectedUsers.Where(x => x.Value == user).Select(r => r.Key);
+            return connectedUsers.Where(x => x.Value == user).Select(r => r.Key).ToList();
         }
         protected List<string> GetConnectionIds()
         {
