@@ -1,3 +1,5 @@
 # do not update actual builds
 /src/chat_server/bin/*
 /src/chat_server/obj/*
+.vs
+.vscode
