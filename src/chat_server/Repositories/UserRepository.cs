@@ -7,6 +7,7 @@ namespace chat_server.Repositories
 {
     public class UserRepository : GenericRepository<User>, IUserRepository
     {
+        GenericRepository<Contact> contactRepository = new GenericRepository<Contact>();
         public UserRepository() : base()
         {
             
@@ -20,6 +21,13 @@ namespace chat_server.Repositories
         public List<User> GetByName(string name)
         {
             return GetAll().Where(x => x.Name.Contains(name)).ToList();
+        }
+
+        public void AddContact(User owner, User contact)
+        {
+            Contact c = new Contact(){Owner = owner, User = contact};
+
+            contactRepository.Add(c);
         }
     }
 }

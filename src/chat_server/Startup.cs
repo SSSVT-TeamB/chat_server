@@ -18,6 +18,7 @@ namespace chat_server
             services.AddSingleton<ILoginRepository, LoginRepository>();
             services.AddSingleton<IChatRoomRepository, ChatRoomRepository>();
             services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<IContactRepository, ContactRepository>();
 
             services.AddSignalR(options =>
             {

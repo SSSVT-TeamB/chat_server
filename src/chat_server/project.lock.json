@@ -1284,13 +1284,13 @@
           }
         }
       },
-      "SapientGuardian.EntityFrameworkCore.MySql/7.1.15": {
+      "SapientGuardian.EntityFrameworkCore.MySql/7.1.19": {
         "type": "package",
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "1.0.0",
           "Microsoft.EntityFrameworkCore.Relational": "1.0.0",
           "NETStandard.Library": "1.6.0",
-          "SapientGuardian.MySql.Data": "6.9.813",
+          "SapientGuardian.MySql.Data": "6.9.814",
           "System.Linq": "4.1.0"
         },
         "compile": {
@@ -1300,7 +1300,7 @@
           "lib/netstandard1.3/SapientGuardian.EntityFrameworkCore.MySql.dll": {}
         }
       },
-      "SapientGuardian.MySql.Data/6.9.813": {
+      "SapientGuardian.MySql.Data/6.9.814": {
         "type": "package",
         "dependencies": {
           "Microsoft.CSharp": "4.0.1",
@@ -4457,22 +4457,22 @@
         "runtimes/ubuntu.16.10-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
       ]
     },
-    "SapientGuardian.EntityFrameworkCore.MySql/7.1.15": {
-      "sha512": "/CpotbQHmndjiY6d+jEOgxcEGmqEwnG+GF2Xe7OtzRAswE0uK53D1jYiHp1iIY1iESJCVMHSGhxl/cGj5kf1vw==",
+    "SapientGuardian.EntityFrameworkCore.MySql/7.1.19": {
+      "sha512": "Vqxa3Mth0fHRCBPPlti74wUdq6OHd/gNzWoIn+BMJZJY4LASMV4glhb1R9PvKropofGtkLn+CMz8fmabzeZcYA==",
       "type": "package",
-      "path": "SapientGuardian.EntityFrameworkCore.MySql/7.1.15",
+      "path": "SapientGuardian.EntityFrameworkCore.MySql/7.1.19",
       "files": [
-        "SapientGuardian.EntityFrameworkCore.MySql.7.1.15.nupkg.sha512",
+        "SapientGuardian.EntityFrameworkCore.MySql.7.1.19.nupkg.sha512",
         "SapientGuardian.EntityFrameworkCore.MySql.nuspec",
         "lib/netstandard1.3/SapientGuardian.EntityFrameworkCore.MySql.dll"
       ]
     },
-    "SapientGuardian.MySql.Data/6.9.813": {
-      "sha512": "9umAXTPXeO66iSThDL7mOB3cDD1zu3N5Kl4X/1jLLJJZVtEAtpOCeGXSGG99u6On9lZKSLEjEC7EJ+YBIGWyCw==",
+    "SapientGuardian.MySql.Data/6.9.814": {
+      "sha512": "GhJWXa2HKWQsRJlGJxLumg6NvS4f84wIsV+4iinUF+fgX5XNGk1tUDvwrWAPbPM1nLUCE6iyvJKNM5wdgtdBtA==",
       "type": "package",
-      "path": "SapientGuardian.MySql.Data/6.9.813",
+      "path": "SapientGuardian.MySql.Data/6.9.814",
       "files": [
-        "SapientGuardian.MySql.Data.6.9.813.nupkg.sha512",
+        "SapientGuardian.MySql.Data.6.9.814.nupkg.sha512",
         "SapientGuardian.MySql.Data.nuspec",
         "lib/netstandard1.3/SapientGuardian.MySql.Data.dll"
       ]
@@ -9163,8 +9163,8 @@
       "Microsoft.Extensions.Configuration.Json >= 1.1.0",
       "Microsoft.Extensions.Logging.Console >= 1.1.0",
       "Microsoft.NETCore.App >= 1.1.0",
-      "SapientGuardian.EntityFrameworkCore.MySql >= 7.1.15",
-      "SapientGuardian.MySql.Data >= 6.9.813"
+      "SapientGuardian.EntityFrameworkCore.MySql >= 7.1.19",
+      "SapientGuardian.MySql.Data >= 6.9.814"
     ],
     ".NETCoreApp,Version=v1.0": []
   },

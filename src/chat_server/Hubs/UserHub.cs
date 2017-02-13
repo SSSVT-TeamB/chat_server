@@ -8,9 +8,10 @@ namespace chat_server.Hubs
 {
     public class UserHub : ChatHub
     {
-        public UserHub(IUserRepository userRepository) : base (userRepository)
+        IContactRepository _contactRepository;
+        public UserHub(IUserRepository userRepository, IContactRepository contactRepository) : base (userRepository)
         {
-
+            _contactRepository = contactRepository;
         }
 
         public List<User> GetContacts()
@@ -18,7 +19,7 @@ namespace chat_server.Hubs
             if (User == null)
                 return null;
 
-            return (List<User>)(from r in User.Contacts select r.User);
+            return _contactRepository.GetByUser(User);
         }
 
         public List<User> FindContact(string name)
@@ -26,17 +27,20 @@ namespace chat_server.Hubs
             if (User == null)
                 return null;
             
-            return _userRepository.GetByName(name);
+            List<User> users = _userRepository.GetByName(name);
+            users.Remove(User);
+            return users;
         }
 
         public ActionResult AddContact(int userId)
         {   
             User user = _userRepository.GetById(userId);
-            if (User == null || (from r in User.Contacts select r.User).Contains(user))
+            
+            if (User == null || _contactRepository.GetByUser(User).Contains(user))
                 return ActionResult.GENERAL_FAIL;
 
-            User.Contacts.Add(new Contact() {Owner = User,User = user});
-            user.Contacts.Add(new Contact() {Owner = user, User = User});
+            _contactRepository.Add(User,user);
+            _contactRepository.Add(user,User);          
 
             foreach (string connectionId in GetConnectionIds(user))
             {

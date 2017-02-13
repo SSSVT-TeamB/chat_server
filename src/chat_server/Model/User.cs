@@ -13,10 +13,10 @@ namespace chat_server.Model
         public Login Login { get; set; }
 
         [JsonIgnoreAttribute]
-        public List<Contact> Contacts {get; set; }
+        public virtual List<Contact> Contacts {get; set; }
 
         [JsonIgnoreAttribute]
-        public List<ChatRoomMember> MemberOf { get; set; }
+        public virtual List<ChatRoomMember> MemberOf { get; set; }
 
         public User(string name, Login login)
         {

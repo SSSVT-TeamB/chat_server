@@ -7,7 +7,7 @@ namespace chat_server.Model
     {
         public int Id { get; set; }
         [JsonIgnoreAttribute]
-        public List<ChatRoomMember> Members { get; set; }
+        public virtual List<ChatRoomMember> Members { get; set; }
         
         public User Owner { get; set; }
         public string Name { get; set; }
