@@ -29,6 +29,14 @@ namespace chat_server.Hubs
             
             List<User> users = _userRepository.GetByName(name);
             users.Remove(User);
+
+            //remove already added users
+            List<User> userContacts = _contactRepository.GetByUser(User);
+            foreach (var user in userContacts)
+            {
+                users.Remove(user);
+            }
+
             return users;
         }
 
@@ -38,7 +46,7 @@ namespace chat_server.Hubs
             
             if (User == null)
                 return ActionResult.GENERAL_FAIL;
-                
+
             if (_contactRepository.GetByUser(User).Contains(user))
                 return ActionResult.USER_EXISTS;
 
