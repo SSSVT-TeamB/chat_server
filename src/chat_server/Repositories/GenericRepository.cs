@@ -1,6 +1,5 @@
 using System.Linq;
 using chat_server.Contexts;
-using chat_server.Factories;
 using chat_server.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,13 +7,19 @@ namespace chat_server.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        protected ChatContext context = ChatContextFactory.Get();
+        protected ChatContext context;// = ChatContextFactory.Get();
         
         protected DbSet<T> dbset;
 
+        public GenericRepository(ChatContext context)
+        {
+            this.context = context;
+            dbset = context.Set<T>();
+        }
+
         public GenericRepository()
         {
-            dbset = context.Set<T>();
+            
         }
 
          public IQueryable<T> GetAll() 

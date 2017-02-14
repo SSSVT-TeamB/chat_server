@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using chat_server.Model;
 using chat_server.Repositories.Interfaces;
@@ -19,15 +20,17 @@ namespace chat_server.Hubs
         public ActionResult NewMessage(string text, int chatRoomId)
         {
             ChatRoom cr = _chatRoomRepository.GetById(chatRoomId);
-            if (User == null || cr == null || !cr.HasMember(User))
+            if (User == null || cr == null || !_chatRoomRepository.IsUserRoomMember(cr, User))
                 return ActionResult.NOT_ENOUGH_PERMISSIONS;
+            
+            Console.WriteLine("******************************************************************************************************");
 
             Message message = new Message(User, text);
 
             _messageRepository.Add(message,cr);
 
             //notify all users in ChatRoom
-            foreach (User user in (from r in cr.Members select r.User).ToList())
+            foreach (User user in _chatRoomRepository.GetMembersByRoom(cr))
             {
                 foreach (string connectionId in GetConnectionIds(user))
                 {
@@ -44,7 +47,7 @@ namespace chat_server.Hubs
         public List<Message> GetRoomMessages(int chatRoomId)
         {
             ChatRoom cr = _chatRoomRepository.GetById(chatRoomId);
-            if (User == null || cr == null || !cr.HasMember(User))
+            if (User == null || cr == null || !_chatRoomRepository.IsUserRoomMember(cr, User))
                 return null;
 
             return _messageRepository.GetByRoomId(cr.Id);

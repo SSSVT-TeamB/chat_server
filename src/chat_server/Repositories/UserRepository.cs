@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using chat_server.Contexts;
 using chat_server.Model;
 using chat_server.Repositories.Interfaces;
 
@@ -8,7 +9,7 @@ namespace chat_server.Repositories
     public class UserRepository : GenericRepository<User>, IUserRepository
     {
         GenericRepository<Contact> contactRepository = new GenericRepository<Contact>();
-        public UserRepository() : base()
+        public UserRepository(ChatContext context) : base(context)
         {
             
         }

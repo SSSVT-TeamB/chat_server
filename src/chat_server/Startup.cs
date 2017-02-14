@@ -5,6 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using chat_server.Repositories;
 using chat_server.Repositories.Interfaces;
+using Microsoft.Extensions.Configuration;
+using chat_server.Contexts;
+using MySQL.Data.Entity.Extensions;
 
 namespace chat_server
 {
@@ -19,6 +22,13 @@ namespace chat_server
             services.AddSingleton<IChatRoomRepository, ChatRoomRepository>();
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IContactRepository, ContactRepository>();
+
+            var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                
+            var configuration = builder.Build();
+
+            services.AddDbContext<ChatContext>(options =>
+                options.UseMySQL(configuration.GetConnectionString("DbConnection")));
 
             services.AddSignalR(options =>
             {
@@ -44,6 +54,13 @@ namespace chat_server
             {
                 await context.Response.WriteAsync("Not for http use!");
             });
+
+            var serviceScopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
+            using (var serviceScope = serviceScopeFactory.CreateScope())
+            {
+                var dbContext = serviceScope.ServiceProvider.GetService<ChatContext>();
+                dbContext.Database.EnsureCreated();
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace chat_server.Contexts
 
         public ChatContext(DbContextOptions<ChatContext> options) : base(options)
         {
-
+            
         }   
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

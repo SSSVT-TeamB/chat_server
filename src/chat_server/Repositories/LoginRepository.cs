@@ -1,4 +1,5 @@
 using System.Linq;
+using chat_server.Contexts;
 using chat_server.Model;
 using chat_server.Repositories.Interfaces;
 
@@ -6,7 +7,7 @@ namespace chat_server.Repositories
 {
     public class LoginRepository : GenericRepository<Login>, ILoginRepository 
     {
-        public LoginRepository() : base()
+        public LoginRepository(ChatContext context) : base(context)
         {
             
         }

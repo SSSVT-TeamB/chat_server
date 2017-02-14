@@ -32,10 +32,5 @@ namespace chat_server.Model
 
             Members.Add(new ChatRoomMember(this,member));
         }
-
-        public bool HasMember(User member)
-        {
-            return Members.Exists(x => x.User == member);
-        }
     }
 }
