@@ -22,8 +22,6 @@ namespace chat_server.Hubs
             ChatRoom cr = _chatRoomRepository.GetById(chatRoomId);
             if (User == null || cr == null || !_chatRoomRepository.IsUserRoomMember(cr, User))
                 return ActionResult.NOT_ENOUGH_PERMISSIONS;
-            
-            Console.WriteLine("******************************************************************************************************");
 
             Message message = new Message(User, text);
 

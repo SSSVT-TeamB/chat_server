@@ -142,10 +142,7 @@ namespace chat_server.Hubs
             if (User == null || room == null)
                 return ActionResult.GENERAL_FAIL;
 
-            if (room.Owner == null)
-                return ActionResult.PRIVATE_CHAT;
-
-            if (room.Owner != User)
+            if (room.Owner != User && room.Owner != null || !_chatRoomRepository.IsUserRoomMember(room, User))
                 return ActionResult.NOT_ENOUGH_PERMISSIONS;
 
             room.Name = name;
