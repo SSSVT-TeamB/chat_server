@@ -108,7 +108,7 @@ namespace chat_server.Hubs
             if (User == null || room == null || partner == null)
                 return ActionResult.GENERAL_FAIL;
 
-            if (room.Owner != User)
+            if (room.Owner != User && room.Owner != null)
                 return ActionResult.NOT_ENOUGH_PERMISSIONS;
 
             _chatRoomRepository.AddRoomMember(room,partner);
