@@ -111,8 +111,7 @@ namespace chat_server.Hubs
             if (room.Owner != User)
                 return ActionResult.NOT_ENOUGH_PERMISSIONS;
 
-            room.AddMember(partner);
-            _chatRoomRepository.Update(room);
+            _chatRoomRepository.AddRoomMember(room,partner);
 
             return ActionResult.SUCCESS;
         }

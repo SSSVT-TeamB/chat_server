@@ -21,6 +21,7 @@ namespace chat_server.Repositories
         public void AddRoomMember(ChatRoom room, User newMember)
         {
             this.context.ChatRoomMembers.Add(new ChatRoomMember(room, newMember));
+            this.context.SaveChanges();
         }
 
         public bool IsUserRoomMember(ChatRoom room, User member)
