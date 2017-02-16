@@ -24,13 +24,5 @@ namespace chat_server.Model
         {
             
         }
-
-        public void AddMember(User member)
-        {
-            if (Members == null)
-                Members = new List<ChatRoomMember>();
-
-            Members.Add(new ChatRoomMember(this,member));
-        }
     }
 }
