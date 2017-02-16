@@ -36,11 +36,8 @@ namespace chat_server.Hubs
 
             ChatRoom room = _chatRoomRepository.Add(new ChatRoom(null,User.Name+" - "+partner.Name));
             
-
-            room.AddMember(User);
-            room.AddMember(partner);
-
-            _chatRoomRepository.Update(room);
+            _chatRoomRepository.AddRoomMember(room, User);
+            _chatRoomRepository.AddRoomMember(room, partner);
 
             List<string> partnerConnectionIds = GetConnectionIds(partner);
             
@@ -75,10 +72,10 @@ namespace chat_server.Hubs
 
             foreach (User user in partners)
             {
-                room.AddMember(user);
+                _chatRoomRepository.AddRoomMember(room,user);
             }
 
-            room.AddMember(User);
+            _chatRoomRepository.AddRoomMember(room,User);
 
             _chatRoomRepository.Update(room);
 
