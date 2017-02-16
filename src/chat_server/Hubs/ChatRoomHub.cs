@@ -116,6 +116,18 @@ namespace chat_server.Hubs
 
             _chatRoomRepository.AddRoomMember(room,partner);
 
+            foreach (User client in _chatRoomRepository.GetMembersByRoom(room))
+            {
+                foreach (string connectionId in GetConnectionIds(client))
+                {
+                    try{
+                    Clients.Client(connectionId).OnRoomPartnerAdd(room, partner);
+                    }
+                    catch
+                    {}
+                }
+            }
+
             return ActionResult.SUCCESS;
         }
 
@@ -128,6 +140,18 @@ namespace chat_server.Hubs
 
             if (room.Owner != User && room.Owner != null)
                 return ActionResult.NOT_ENOUGH_PERMISSIONS;
+
+            foreach (User client in _chatRoomRepository.GetMembersByRoom(room))
+            {
+                foreach (string connectionId in GetConnectionIds(client))
+                {
+                    try{
+                    Clients.Client(connectionId).OnRoomRemove(room);
+                    }
+                    catch
+                    {}
+                }
+            }
             
             _chatRoomRepository.Remove(room.Id);
 
@@ -148,7 +172,32 @@ namespace chat_server.Hubs
 
             _chatRoomRepository.Update(room);
 
+            foreach (User client in _chatRoomRepository.GetMembersByRoom(room))
+            {
+                foreach (string connectionId in GetConnectionIds(client))
+                {
+                    try{
+                    Clients.Client(connectionId).OnRoomRename(room);
+                    }
+                    catch
+                    {}
+                }
+            }
+
             return ActionResult.SUCCESS;
+        }
+
+        public List<User> GetRoomMembers(int chatRoomId)
+        {
+            ChatRoom room = _chatRoomRepository.GetById(chatRoomId);
+
+            if (User == null || room == null)
+                return null;
+
+            if (!_chatRoomRepository.IsUserRoomMember(room, User))
+                return null;
+
+            return _chatRoomRepository.GetMembersByRoom(room);
         }
 
     }
