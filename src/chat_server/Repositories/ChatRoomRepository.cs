@@ -40,6 +40,8 @@ namespace chat_server.Repositories
                 this.context.ChatRoomMembers.RemoveRange(this.context.ChatRoomMembers.Where(x => x.ChatRoom == room));
             else           
                 this.context.ChatRoomMembers.RemoveRange(this.context.ChatRoomMembers.Where(x => users.Contains(x.User) && x.ChatRoom == room));
+
+            this.context.SaveChanges();
         }
     }
 }
