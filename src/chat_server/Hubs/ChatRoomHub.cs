@@ -46,7 +46,7 @@ namespace chat_server.Hubs
             foreach (string connectionId in partnerConnectionIds)
             {
                 try{
-                    Clients.Client(connectionId).OnNewChatRoomAdd(room);
+                    Clients.Client(connectionId).OnNewRoomAdd(room);
                 }
                 catch{}
             }
