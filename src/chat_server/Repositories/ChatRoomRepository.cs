@@ -33,5 +33,13 @@ namespace chat_server.Repositories
         {
             return this.context.ChatRoomMembers.Where(x => x.ChatRoom == room).Select(x => x.User).ToList();
         }
+
+        public void RemoveRoomMembers(ChatRoom room, List<User> users = null)
+        {
+            if(users == null)
+                this.context.ChatRoomMembers.RemoveRange(this.context.ChatRoomMembers.Where(x => x.ChatRoom == room));
+            else           
+                this.context.ChatRoomMembers.RemoveRange(this.context.ChatRoomMembers.Where(x => users.Contains(x.User) && x.ChatRoom == room));
+        }
     }
 }

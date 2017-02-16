@@ -153,6 +153,8 @@ namespace chat_server.Hubs
                 }
             }
             
+            _chatRoomRepository.RemoveRoomMembers(room);
+
             _chatRoomRepository.Remove(room.Id);
 
             return ActionResult.SUCCESS;
